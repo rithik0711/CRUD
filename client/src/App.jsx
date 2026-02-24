@@ -1,11 +1,11 @@
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || "";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './App.css';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]); 
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState({ name: "", reg_no: "", dept: "", year: "", mail: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -123,13 +123,13 @@ function App() {
           <h3>Student Management System</h3>
           <p>Manage student records with ease</p>
         </div>
-        
+
         <div className='search-container'>
           <div className="search-box">
-            <input 
-              type="search" 
-              placeholder="Search by name, registration number, department or email..." 
-              onChange={handleSearchChange} 
+            <input
+              type="search"
+              placeholder="Search by name, registration number, department or email..."
+              onChange={handleSearchChange}
             />
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
@@ -144,13 +144,13 @@ function App() {
             Add Student
           </button>
         </div>
-        
+
         {isLoading && (
           <div className="loading-container">
             <div className="spinner"></div>
           </div>
         )}
-        
+
         <div className="table-container">
           {filteredUsers.length > 0 ? (
             <table className='table'>
@@ -205,7 +205,7 @@ function App() {
             </div>
           )}
         </div>
-        
+
         {isModalOpen && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -221,48 +221,48 @@ function App() {
               <form className="modal-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">Full Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     id="name"
-                    name="name" 
-                    value={userData.name} 
-                    onChange={handleData} 
-                    required 
+                    name="name"
+                    value={userData.name}
+                    onChange={handleData}
+                    required
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="reg_no">Registration Number</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     id="reg_no"
-                    name="reg_no" 
-                    value={userData.reg_no} 
-                    onChange={handleData} 
-                    required 
+                    name="reg_no"
+                    value={userData.reg_no}
+                    onChange={handleData}
+                    required
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="dept">Department</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     id="dept"
-                    name="dept" 
-                    value={userData.dept} 
-                    onChange={handleData} 
-                    required 
+                    name="dept"
+                    value={userData.dept}
+                    onChange={handleData}
+                    required
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="year">Year</label>
-                  <select 
+                  <select
                     id="year"
-                    name="year" 
-                    value={userData.year} 
-                    onChange={handleData} 
-                    required 
+                    name="year"
+                    value={userData.year}
+                    onChange={handleData}
+                    required
                   >
                     <option value="">Select Year</option>
                     <option value="1">1st Year</option>
@@ -271,19 +271,19 @@ function App() {
                     <option value="4">4th Year</option>
                   </select>
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="mail">Email Address</label>
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     id="mail"
-                    name="mail" 
-                    value={userData.mail} 
-                    onChange={handleData} 
-                    required 
+                    name="mail"
+                    value={userData.mail}
+                    onChange={handleData}
+                    required
                   />
                 </div>
-                
+
                 <div className="form-actions">
                   <button type="button" className="btn-cancel" onClick={closeModal}>
                     Cancel
@@ -296,7 +296,7 @@ function App() {
             </div>
           </div>
         )}
-        
+
         {notification.show && (
           <div className={`notification ${notification.type}`}>
             {notification.message}
