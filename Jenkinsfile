@@ -9,30 +9,17 @@ pipeline {
             }
         }
 
-        stage('Build Backend Image') {
+        stage('Build Fullstack Docker Image') {
             steps {
-                dir('server') {
-                    sh 'docker build -t crud-backend .'
-                }
+                sh 'docker build -t crud-app .'
             }
         }
 
-        stage('Build Frontend Image') {
-            steps {
-                dir('client') {
-                    sh 'docker build -t crud-frontend .'
-                }
-            }
-        }
-
-        stage('Run Containers') {
+        stage('Run Container') {
             steps {
                 sh '''
-                docker rm -f backend || true
-                docker rm -f frontend || true
-
-                docker run -d --name backend -p 8080:8080 crud-backend
-                docker run -d --name frontend -p 80:80 crud-frontend
+                docker rm -f crud-container || true
+                docker run -d --name crud-container -p 8080:8080 crud-app
                 '''
             }
         }
