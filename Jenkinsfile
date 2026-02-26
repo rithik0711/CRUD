@@ -3,24 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
-            steps {
-                echo 'Repository cloned by Jenkins automatically'
-            }
-        }
-
-        stage('Build Fullstack Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t crud-app .'
             }
         }
 
-        stage('Run Container') {
+        stage('Remove Old Image') {
             steps {
-                sh '''
-                docker rm -f crud-container || true
-                docker run -d --name crud-container -p 8080:8080 crud-app
-                '''
+                sh 'docker image prune -f'
             }
         }
     }
